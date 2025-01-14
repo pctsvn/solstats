@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  background: #1C2333;
+  color: #fff;
+}
+
+.App {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

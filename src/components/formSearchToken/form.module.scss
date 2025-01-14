@@ -1,0 +1,72 @@
+// color border
+$border-color: #ffffff;
+$text-color: #fff;
+$border: 0.5px solid $border-color;
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    margin: auto;
+    border: $border;
+    padding: 25px;
+    border-radius: 3px;
+
+    .form__title {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 700;
+        color: $text-color;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+    .form__input__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        .form__input {
+            width: 100%;
+            border: $border;
+            background-color: transparent;
+            height:40px;
+            padding: 0 1rem;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            border-right-width: 0;
+            color: $text-color;
+            font-size: 1rem;
+
+            &::placeholder {
+                color: $text-color;
+                font-size: 1rem;
+                opacity: 0.5;
+            }
+
+            &:focus,
+            &:active {
+                outline: none;
+                box-shadow: none;
+                border: 1px solid #795EFF;
+            }
+        }
+
+        .form__button {
+            all: unset;
+            background-color: rgb(46.6, 46.8, 91.8);
+            color: #fff;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0 1rem;
+            border: 1px solid #795EFF;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+    }
+}

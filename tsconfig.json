@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                           // Phiên bản JavaScript sau khi biên dịch
+    "module": "ESNext",                        // Sử dụng module ESNext
+    "jsx": "react",                            // Hỗ trợ JSX trong React
+    "strict": true,                            // Bật kiểm tra kiểu nghiêm ngặt
+    "esModuleInterop": true,                   // Hỗ trợ import/export ES Module
+    "skipLibCheck": true,                      // Bỏ qua kiểm tra tệp thư viện
+    "forceConsistentCasingInFileNames": true,  // Phân biệt hoa/thường trong tên file
+    "moduleResolution": "node",                // Sử dụng cách resolve module của Node.js
+    "resolveJsonModule": true,                 // Hỗ trợ import file JSON
+    "allowSyntheticDefaultImports": true       // Hỗ trợ import mặc định trong ES Module
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "src/**/*.svg"],
+  "exclude": ["node_modules", "build"]
+}
