@@ -19,73 +19,48 @@
     }
 
     .table {
-        max-width: 90vw;
+        width: 100%;
         border-collapse: collapse;
         background: #1a1a1a;
         border-radius: 8px;
-        overflow-x: scroll;
-        display: block;
 
         th, td {
             white-space: nowrap;
+            text-align: left;
+            padding: 12px 16px;
 
-            // Transaction ID
+            // Token Name
             &:nth-child(1) {
-                width: 20%;
-                min-width: 160px;
+                width: 25%;
+                min-width: 120px;
             }
             // Time
             &:nth-child(2) {
-                width: 15%;
+                width: 25%;
                 min-width: 120px;
             }
             // Type
             &:nth-child(3) {
-                width: 10%;
+                width: 15%;
                 min-width: 80px;
-            }
-            // From
-            &:nth-child(4) {
-                width: 20%;
-                min-width: 160px;
-            }
-            // To
-            &:nth-child(5) {
-                width: 20%;
-                min-width: 160px;
             }
             // Amount
-            &:nth-child(6) {
-                width: 8%;
+            &:nth-child(4) {
+                width: 20%;
                 min-width: 100px;
+                text-align: right;
             }
             // Value
-            &:nth-child(7) {
-                width: 7%;
+            &:nth-child(5) {
+                width: 15%;
                 min-width: 80px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            td, th {
-                padding: 8px 15px;
-                font-size: 12px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            td, th {
-                font-size: 10px;
-                padding: 6px 10px;
+                text-align: right;
             }
         }
 
         th {
             background: #2d2d2d;
             color: #fff;
-            text-align: left;
-            padding: 12px 16px;
-            font-size: 14px;
             font-weight: 500;
             position: sticky;
             top: 0;
@@ -93,14 +68,53 @@
         }
 
         td {
-            padding: 12px 16px;
             color: #e1e1e1;
-            font-size: 14px;
             border-bottom: 1px solid #333;
+        }
 
-            @media (max-width: 768px) {
+        // Mobile styles
+        @media (max-width: 768px) {
+            display: block;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+
+            td, th {
                 padding: 8px 12px;
+                font-size: 13px;
             }
+
+            td {
+                &:nth-child(4),
+                &:nth-child(5) {
+                    font-family: monospace;
+                }
+            }
+        }
+
+        @media (max-width: 576px) {
+            td, th {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+
+        .buy {
+            background: rgba(39, 174, 96, 0.1);
+            .type { color: #27ae60; }
+        }
+
+        .sell {
+            background: rgba(231, 76, 60, 0.1);
+            .type { color: #e74c3c; }
+        }
+
+        .hash {
+            color: #3498db;
+            font-family: monospace;
+        }
+
+        .type {
+            font-weight: 500;
         }
     }
 }
@@ -127,11 +141,11 @@
         }
     }
 
-    .in {
+    .buy {
         background: rgba(0, 255, 26, 0.1);
     }
 
-    .out {
+    .sell {
         background: rgba(255, 0, 0, 0.1);
     }
 }

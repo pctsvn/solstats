@@ -4,13 +4,11 @@ import { useLocation } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 import NoDataIcon from '@mui/icons-material/InboxOutlined';
 import TransactionTable from "../transactionTable";
-import { useTransactions } from "../../hooks/useTransactions";
-import TradingAnalysis from "../tradingAnalysis";
+import { useDataToken } from "../../hooks/useDataToken";
 
 const DataAnalysis: React.FC = () => {
     const path = useLocation();
-    const { transfers, isLoading, analysisData, isAnalyzing } = useTransactions(path.pathname.split("/")[2]);
-
+    const { defiToken, isLoading } = useDataToken(path.pathname.split("/")[2]);
 
     if (isLoading) {
         return (
@@ -21,7 +19,7 @@ const DataAnalysis: React.FC = () => {
         );
     }
 
-    if (!Array.isArray(transfers) || !transfers.length) {
+    if (!Array.isArray(defiToken) || !defiToken.length) {
         return (
             <div className={styles.noDataContainer}>
                 <NoDataIcon className={styles.noDataIcon} />
@@ -32,8 +30,8 @@ const DataAnalysis: React.FC = () => {
 
     return (
         <>
-            <TransactionTable transactions={transfers} />
-            <TradingAnalysis analysisData={analysisData} isLoading={isAnalyzing} />
+            <TransactionTable listTokenDefiActivity={defiToken} />
+            {/* <TradingAnalysis analysisData={analysisData} isLoading={isAnalyzing} /> */}
         </>
     );
 };

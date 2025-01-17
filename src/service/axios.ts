@@ -3,7 +3,6 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 const token = process.env.REACT_APP_SOLSCAN_API_KEY;
 const baseUrl = process.env.REACT_APP_API_URL;
 
-console.log(token, baseUrl);
 
 class AxiosService {
     private static instance: AxiosService;
@@ -18,7 +17,6 @@ class AxiosService {
                 token: token,
             },
         });
-        console.log(process.env.SOLSCAN_API_KEY);
     }
 
     public static getInstance(): AxiosService {

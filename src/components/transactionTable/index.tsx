@@ -1,53 +1,57 @@
 import React from "react";
-import { Transfer } from "../../model";
+import { TokenDefiActivity } from "../../model";
 import clsx from "clsx";
 import styles from "./transactionTable.module.scss";
+import { getTokenName } from "../../utils/getTokenName";
+import { SOL } from "../../constant";
+// import { getMetaToken } from "../../apis/metaToken";
 
-interface TransactionTableProps {
-    transactions: Transfer[];
+interface TokenDefiActivityProps {
+    listTokenDefiActivity: TokenDefiActivity[];
 }
 
-interface TransactionRowProps {
-    transaction: Transfer;
+interface TokenDefiActivityRowProps {
+    tokenDefiActivity: TokenDefiActivity;
 }
 
-const TransactionRow: React.FC<TransactionRowProps> = React.memo(({ transaction }) => (
-    <tr className={clsx(styles.row, {
-        [styles.in]: transaction.flow === "in",
-        [styles.out]: transaction.flow === "out"
-    })}>
-        <td>
-            <span className={styles.hash}>
-                {transaction.trans_id.slice(0, 20)}...
-            </span>
-        </td>
-        <td>{new Date(transaction.time).toLocaleString()}</td>
-        <td>
-            <span className={styles.type}>
-                {transaction.flow === "in" ? "Buy" : "Sell"}
-            </span>
-        </td>
-        <td>
-            <span className={styles.hash}>
-                {transaction.from_address.slice(0, 20)}...
-            </span>
-        </td>
-        <td>
-            <span className={styles.hash}>
-                {transaction.to_address.slice(0, 20)}...
-            </span>
-        </td>
-        <td>
-            {transaction.amount} {transaction.token_decimals > 0 ? '(SPL)' : '(SOL)'}
-        </td>
-        <td>${transaction.value.toFixed(2)}</td>
-    </tr>
-));
+const TransactionRow: React.FC<TokenDefiActivityRowProps> = React.memo(({ tokenDefiActivity }) => {
+
+    const token1 = tokenDefiActivity.routers.token1;
+    const isBuy = token1 === SOL;
+
+    return (
+        <tr className={clsx(styles.row, {
+            [styles.buy]: isBuy,
+            [styles.sell]: !isBuy
+        })}>
+            {/* <td>
+                <span className={styles.hash}>
+                    {tokenDefiActivity.trans_id.slice(0, 20)}...
+                </span>
+            </td> */}
+            <td>
+                <span className={styles.hash}>
+                    {isBuy ? getTokenName(tokenDefiActivity.routers.token2) : getTokenName(tokenDefiActivity.routers.token1)}
+                </span>
+            </td>
+            <td>{new Date(tokenDefiActivity.time).toLocaleString()}</td>
+            <td>
+                <span className={styles.type}>
+                    {isBuy ? "Buy" : "Sell"}
+                </span>
+            </td>
+            <td>
+                {(tokenDefiActivity.routers.amount1 / 10 ** tokenDefiActivity.routers.token1_decimals)}
+            </td>
+            <td>${tokenDefiActivity.value.toFixed(2)}</td>
+        </tr>
+    );
+});
 
 TransactionRow.displayName = 'TransactionRow';
 
-const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => {
-    if (!transactions || transactions.length === 0) {
+const TransactionTable: React.FC<TokenDefiActivityProps> = ({ listTokenDefiActivity }) => {
+    if (!listTokenDefiActivity || listTokenDefiActivity.length === 0) {
         return null;
     }
 
@@ -57,20 +61,19 @@ const TransactionTable: React.FC<TransactionTableProps> = ({ transactions }) => 
             <table className={styles.table}>
                 <thead>
                     <tr>
-                        <th>Transaction ID</th>
+                        {/* <th>Transaction ID</th> */}
+                        <th>Token Name</th>
                         <th>Time</th>
                         <th>Type</th>
-                        <th>From</th>
-                        <th>To</th>
                         <th>Amount</th>
                         <th>Value (USD)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {transactions.map((tx) => (
+                    {listTokenDefiActivity.map((tx) => (
                         <TransactionRow
                             key={tx.trans_id}
-                            transaction={tx}
+                            tokenDefiActivity={tx}
                         />
                     ))}
                 </tbody>
