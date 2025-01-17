@@ -1,14 +1,15 @@
-import { axiosService } from "../service/axios.service";
+import { Transaction, Transfer } from "../model";
+import { axiosService } from "../service/axios";
 
 interface TransactionParams {
     address?: string;
     before?: number;
 }
 
-export const getAccountTransactions = async ({
+export const getAccountTransfer = async ({
     address = "",
     before,
-}: TransactionParams) => {
+}: TransactionParams): Promise<{ data: Transfer[] }> => {
     const params: TransactionParams = {
         address,
     };
@@ -17,12 +18,24 @@ export const getAccountTransactions = async ({
         params.before = before;
     }
 
-    const response = await axiosService.get<any>(
+    const response = await axiosService.get<{ data: Transfer[] }>(
         "/account/transfer",
         {
             params,
         }
     );
 
+    return response.data;
+};
+
+export const getAccountTransactions = async ({
+    address = "",
+}: TransactionParams): Promise<{ data: Transaction[] }> => {
+    const response = await axiosService.get<{ data: Transaction[] }>(
+        "account/transactions",
+        {
+            params: { address },
+        }
+    );
     return response.data;
 };
